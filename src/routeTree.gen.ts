@@ -9,38 +9,165 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppSettingsRouteImport } from './routes/_app.settings'
+import { Route as AppRewardsRouteImport } from './routes/_app.rewards'
+import { Route as AppProfileRouteImport } from './routes/_app.profile'
+import { Route as AppNotificationsRouteImport } from './routes/_app.notifications'
+import { Route as AppMonthlyRouteImport } from './routes/_app.monthly'
+import { Route as AppMissionsRouteImport } from './routes/_app.missions'
+import { Route as AppLeaderboardRouteImport } from './routes/_app.leaderboard'
+import { Route as AppHowRouteImport } from './routes/_app.how'
+import { Route as AppCityRouteImport } from './routes/_app.city'
 
+const AppRoute = AppRouteImport.update({
+  id: '/_app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppRewardsRoute = AppRewardsRouteImport.update({
+  id: '/rewards',
+  path: '/rewards',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProfileRoute = AppProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppNotificationsRoute = AppNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMonthlyRoute = AppMonthlyRouteImport.update({
+  id: '/monthly',
+  path: '/monthly',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMissionsRoute = AppMissionsRouteImport.update({
+  id: '/missions',
+  path: '/missions',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppLeaderboardRoute = AppLeaderboardRouteImport.update({
+  id: '/leaderboard',
+  path: '/leaderboard',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppHowRoute = AppHowRouteImport.update({
+  id: '/how',
+  path: '/how',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCityRoute = AppCityRouteImport.update({
+  id: '/city',
+  path: '/city',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/city': typeof AppCityRoute
+  '/how': typeof AppHowRoute
+  '/leaderboard': typeof AppLeaderboardRoute
+  '/missions': typeof AppMissionsRoute
+  '/monthly': typeof AppMonthlyRoute
+  '/notifications': typeof AppNotificationsRoute
+  '/profile': typeof AppProfileRoute
+  '/rewards': typeof AppRewardsRoute
+  '/settings': typeof AppSettingsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/city': typeof AppCityRoute
+  '/how': typeof AppHowRoute
+  '/leaderboard': typeof AppLeaderboardRoute
+  '/missions': typeof AppMissionsRoute
+  '/monthly': typeof AppMonthlyRoute
+  '/notifications': typeof AppNotificationsRoute
+  '/profile': typeof AppProfileRoute
+  '/rewards': typeof AppRewardsRoute
+  '/settings': typeof AppSettingsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_app': typeof AppRouteWithChildren
+  '/_app/city': typeof AppCityRoute
+  '/_app/how': typeof AppHowRoute
+  '/_app/leaderboard': typeof AppLeaderboardRoute
+  '/_app/missions': typeof AppMissionsRoute
+  '/_app/monthly': typeof AppMonthlyRoute
+  '/_app/notifications': typeof AppNotificationsRoute
+  '/_app/profile': typeof AppProfileRoute
+  '/_app/rewards': typeof AppRewardsRoute
+  '/_app/settings': typeof AppSettingsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/city'
+    | '/how'
+    | '/leaderboard'
+    | '/missions'
+    | '/monthly'
+    | '/notifications'
+    | '/profile'
+    | '/rewards'
+    | '/settings'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/city'
+    | '/how'
+    | '/leaderboard'
+    | '/missions'
+    | '/monthly'
+    | '/notifications'
+    | '/profile'
+    | '/rewards'
+    | '/settings'
+  id:
+    | '__root__'
+    | '/'
+    | '/_app'
+    | '/_app/city'
+    | '/_app/how'
+    | '/_app/leaderboard'
+    | '/_app/missions'
+    | '/_app/monthly'
+    | '/_app/notifications'
+    | '/_app/profile'
+    | '/_app/rewards'
+    | '/_app/settings'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/_app': {
+      id: '/_app'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +175,101 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_app/settings': {
+      id: '/_app/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/rewards': {
+      id: '/_app/rewards'
+      path: '/rewards'
+      fullPath: '/rewards'
+      preLoaderRoute: typeof AppRewardsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/profile': {
+      id: '/_app/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AppProfileRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/notifications': {
+      id: '/_app/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof AppNotificationsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/monthly': {
+      id: '/_app/monthly'
+      path: '/monthly'
+      fullPath: '/monthly'
+      preLoaderRoute: typeof AppMonthlyRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/missions': {
+      id: '/_app/missions'
+      path: '/missions'
+      fullPath: '/missions'
+      preLoaderRoute: typeof AppMissionsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/leaderboard': {
+      id: '/_app/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/leaderboard'
+      preLoaderRoute: typeof AppLeaderboardRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/how': {
+      id: '/_app/how'
+      path: '/how'
+      fullPath: '/how'
+      preLoaderRoute: typeof AppHowRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/city': {
+      id: '/_app/city'
+      path: '/city'
+      fullPath: '/city'
+      preLoaderRoute: typeof AppCityRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
+interface AppRouteChildren {
+  AppCityRoute: typeof AppCityRoute
+  AppHowRoute: typeof AppHowRoute
+  AppLeaderboardRoute: typeof AppLeaderboardRoute
+  AppMissionsRoute: typeof AppMissionsRoute
+  AppMonthlyRoute: typeof AppMonthlyRoute
+  AppNotificationsRoute: typeof AppNotificationsRoute
+  AppProfileRoute: typeof AppProfileRoute
+  AppRewardsRoute: typeof AppRewardsRoute
+  AppSettingsRoute: typeof AppSettingsRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppCityRoute: AppCityRoute,
+  AppHowRoute: AppHowRoute,
+  AppLeaderboardRoute: AppLeaderboardRoute,
+  AppMissionsRoute: AppMissionsRoute,
+  AppMonthlyRoute: AppMonthlyRoute,
+  AppNotificationsRoute: AppNotificationsRoute,
+  AppProfileRoute: AppProfileRoute,
+  AppRewardsRoute: AppRewardsRoute,
+  AppSettingsRoute: AppSettingsRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRoute: AppRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
